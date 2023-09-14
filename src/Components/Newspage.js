@@ -11,11 +11,15 @@ export default class Newspage extends Component {
     };
   }
   async componentDidMount() {
+    this.props.setProgress(10);
     let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=36a7d2bd5dd54c5a8055cd7b442eb150&page=1&pagesize=${this.props.pagesize}`;
     let response = await fetch(url);
     let data = await response.json();
+
     this.setState({ articles: data.articles, totalResults: data.totalResults });
     document.title = `Daily News - ${this.props.category.charAt(0).toUpperCase() + this.props.category.slice(1)}`;
+    this.props.setProgress(100);
+
   }
 
   // componentDidCatch(error, info) {
